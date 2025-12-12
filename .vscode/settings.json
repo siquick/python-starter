@@ -1,0 +1,61 @@
+{
+  // Python settings for TypeScript-like DX
+  "python.defaultInterpreterPath": "./.venv/bin/python",
+  "python.terminal.activateEnvironment": true,
+
+  // Ruff as the default formatter
+  "python.formatting.provider": "ruff",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+
+  // Ruff import sorting
+  "python.sortImports.args": ["--extend-select=I"],
+
+  // Pyright for type checking and IntelliSense
+  "python.analysis.typeCheckingMode": "strict",
+  "python.analysis.diagnosticMode": "workspace",
+
+  // Import resolution
+  "python.analysis.extraPaths": ["./src"],
+  "python.analysis.include": ["src"],
+
+  // Testing
+  "python.testing.pytestEnabled": true,
+  "python.testing.pytestArgs": ["tests"],
+  "python.testing.unittestEnabled": false,
+
+  // Linting (Ruff handles this)
+  "python.linting.enabled": false,
+
+  // File associations
+  "files.associations": {
+    "*.py": "python"
+  },
+
+  // Editor settings
+  "editor.codeActionsOnSave": {
+    "source.fixAll.ruff": "explicit",
+    "source.organizeImports.ruff": "explicit"
+  },
+
+  // Exclude files
+  "files.exclude": {
+    "**/.venv": true,
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "**/.pytest_cache": true,
+    "**/.ruff_cache": true,
+    "**/.mypy_cache": true
+  },
+
+  // Search excludes
+  "search.exclude": {
+    "**/.venv": true,
+    "**/__pycache__": true,
+    "**/.pytest_cache": true,
+    "**/.ruff_cache": true,
+    "**/.mypy_cache": true,
+    "**/uv.lock": true
+  }
+}
