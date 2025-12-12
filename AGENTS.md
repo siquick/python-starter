@@ -4,7 +4,7 @@ A lightweight, **agent-focused** operating manual for working in this repo (comp
 
 This follows the community pattern described at [agents.md](https://agents.md/).
 
-## Goal: “TypeScript repo feel” in Python
+## Goal: "TypeScript repo feel" in Python
 
 - **Deterministic environments**: use `uv` + lockfile.
 - **Fast feedback**: Ruff + Pyright.
@@ -61,7 +61,7 @@ git commit -m "Initial commit from python-starter template"
 - **Version**: Reset to `"0.1.0"`
 - **License**: Update copyright year if needed
 
-### Expected “PR gate” order
+### Expected "PR gate" order
 
 If you change code, the expected local order (matches CI intent) is:
 
@@ -84,7 +84,7 @@ If you change code, the expected local order (matches CI intent) is:
   - Prefer small, typed functions over clever abstractions.
 - **Toolchain**:
   - `uv` is the **only** supported way to manage deps and run tools.
-  - Ruff is the **only** formatter/linter (don’t introduce Black/isort/flake8).
+  - Ruff is the **only** formatter/linter (don't introduce Black/isort/flake8).
 
 ## What this repo is (and is not)
 
@@ -111,30 +111,104 @@ If you change code, the expected local order (matches CI intent) is:
   - CI gates: format check, lint, typecheck, tests
 - `.pre-commit-config.yaml`
   - local hooks for formatting/linting/type checking
+- `CHANGELOG.md`
+  - **MUST be updated** by agents when making changes (see below)
 
-## Making changes: do’s and don’ts
+## Making changes: do's and don'ts
 
-### ✅ Always do
+### Always do
 
 - Keep changes **minimal** and **readable** (prefer small functions/files).
 - Add/adjust tests when behavior changes.
 - Keep type annotations accurate and run `uv run pyright`.
 - Keep `uv.lock` consistent with dependency changes.
 - Prefer **Ruff fixes** over manual churn when changing style.
+- **ALWAYS update CHANGELOG.md** when making changes (see CHANGELOG requirements below).
 
-### ⚠️ Ask first (or clearly justify in PR)
+### Ask first (or clearly justify in PR)
 
 - Adding/removing dependencies (runtime or dev).
 - Changing lint/type strictness (Ruff ruleset, Pyright strictness).
 - Editing CI workflow semantics (not just formatting).
 - Changing packaging posture (e.g., adding publish automation).
 
-### ❌ Never do
+### Never do
 
-- Don’t introduce alternative tooling that duplicates the stack (Black/isort/mypy/etc.) unless explicitly requested.
-- Don’t loosen type checking to “make it pass” without a strong reason.
-- Don’t delete or weaken tests to get green.
-- Don’t write secrets into the repo (tokens, keys, `.env` contents).
+- Don't introduce alternative tooling that duplicates the stack (Black/isort/mypy/etc.) unless explicitly requested.
+- Don't loosen type checking to "make it pass" without a strong reason.
+- Don't delete or weaken tests to get green.
+- Don't write secrets into the repo (tokens, keys, `.env` contents).
+- Don't skip CHANGELOG.md updates when making changes.
+
+## CHANGELOG.md Requirements
+
+**CRITICAL**: Agents MUST update `CHANGELOG.md` whenever making changes to the codebase.
+
+### When to update
+- Adding new features
+- Fixing bugs
+- Changing dependencies
+- Updating configuration
+- Modifying documentation structure
+- Any code changes that affect functionality
+
+### How to update
+
+1. **Get current system date**: Use `date +%Y-%m-%d` command to get the current date (DO NOT use model's date)
+2. **Add entry under appropriate section**:
+   - `### Added` - for new features
+   - `### Changed` - for changes in existing functionality
+   - `### Deprecated` - for soon-to-be removed features
+   - `### Removed` - for removed features
+   - `### Fixed` - for bug fixes
+   - `### Security` - for security vulnerabilities
+
+3. **Format**: Use the current date from system, not the model's date
+   ```markdown
+   ## [Unreleased] - YYYY-MM-DD
+   
+   ### Added
+   - Description of what was added
+   ```
+
+4. **If no Unreleased section exists**, create one at the top:
+   ```markdown
+   ## [Unreleased] - 2025-12-12
+   
+   ### Added
+   - Your change description
+   ```
+
+5. **If Unreleased section exists**, append to it and update the date:
+   ```markdown
+   ## [Unreleased] - 2025-12-12
+   
+   ### Added
+   - Previous change
+   - Your new change
+   ```
+
+### Example CHANGELOG entry
+
+```markdown
+## [Unreleased] - 2025-12-12
+
+### Added
+- New feature for handling user authentication
+- Support for environment variable configuration
+
+### Changed
+- Updated dependency versions in pyproject.toml
+- Improved error messages in CLI output
+
+### Fixed
+- Resolved import path issue in test suite
+```
+
+### Date format
+- Always use `YYYY-MM-DD` format (e.g., `2025-12-12`)
+- Always use the **current system date** obtained via `date +%Y-%m-%d`
+- Never use the model's training date or any hardcoded date
 
 ## Dependency changes (uv-only)
 
@@ -151,7 +225,7 @@ When you add dependencies, ensure `pyproject.toml` and `uv.lock` reflect it.
 - Use `capsys` for CLI/stdout behavior tests (see existing patterns).
 - Keep tests deterministic (no network, time, randomness without seeding/mocking).
 
-## If you’re acting as an autonomous coding agent
+## If you're acting as an autonomous coding agent
 
 Use this checklist before you finish:
 
@@ -159,6 +233,5 @@ Use this checklist before you finish:
 - `uv run ruff check .`
 - `uv run pyright`
 - `uv run pytest`
-- Confirm you didn’t accidentally change toolchain posture (uv/Ruff/Pyright/pytest).
-
-
+- **Update CHANGELOG.md** with current system date (`date +%Y-%m-%d`)
+- Confirm you didn't accidentally change toolchain posture (uv/Ruff/Pyright/pytest).

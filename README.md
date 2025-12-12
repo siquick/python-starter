@@ -2,18 +2,18 @@
 
 A modern Python starter kit with TypeScript-like developer experience. Features deterministic environments, fast feedback loops, single-command workflows, and consistent quality gates.
 
-## ✨ Features
+## Features
 
-- **🎯 TypeScript-like DX**: Strict typing, fast feedback, consistent tooling
-- **⚡ uv**: Lightning-fast Python package manager and virtual environment
-- **🔍 Ruff**: Ultra-fast Python linter and formatter
-- **📝 Pyright**: Microsoft's Python type checker for excellent IntelliSense
-- **🧪 pytest**: Comprehensive testing with coverage reporting
-- **🔄 Dual-path support**: Works as both an application and a library
-- **🚀 GitHub Actions CI**: Automated quality gates on every PR
-- **📦 Modern packaging**: `src/` layout with proper dependency management
+- **TypeScript-like DX**: Strict typing, fast feedback, consistent tooling
+- **uv**: Lightning-fast Python package manager and virtual environment
+- **Ruff**: Ultra-fast Python linter and formatter
+- **Pyright**: Microsoft's Python type checker for excellent IntelliSense
+- **pytest**: Comprehensive testing with coverage reporting
+- **Dual-path support**: Works as both an application and a library
+- **GitHub Actions CI**: Automated quality gates on every PR
+- **Modern packaging**: `src/` layout with proper dependency management
 
-## 🚀 Quick Start (1 minute)
+## Quick Start (1 minute)
 
 ## Option 1: Clone for Development
 ```bash
@@ -63,7 +63,7 @@ git remote add origin https://github.com/your-username/my-new-project.git
 git push -u origin main
 ```
 
-## 🆕 Starting a New Project
+## Starting a New Project
 
 After using degit or cloning:
 
@@ -110,7 +110,7 @@ git remote add origin https://github.com/your-username/your-repo.git
 git push -u origin main
 ```
 
-## 📋 Daily Commands
+## Daily Commands
 
 ```bash
 # Development
@@ -133,7 +133,7 @@ uv sync                         # Install/update all dependencies
 uv lock                         # Update lockfile
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 python-starter/
@@ -158,7 +158,7 @@ python-starter/
 └── README.md
 ```
 
-## 🛠️ Tooling Philosophy
+## Tooling Philosophy
 
 ### uv - The Only Dependency Manager
 - **Why uv?** Blazingly fast, reproducible, single-binary
@@ -180,7 +180,7 @@ python-starter/
 - **Coverage included**: Automatic coverage reporting
 - **Convention over configuration**: Standard test discovery
 
-## 🔄 Development Workflows
+## Development Workflows
 
 ### Adding Dependencies
 
@@ -227,7 +227,7 @@ The starter kit includes optimized VS Code settings:
 - **Test runner**: Integrated pytest support
 - **Debugging**: Pre-configured debug launch configurations
 
-## 📦 Dual-Path Support
+## Dual-Path Support
 
 This starter works as both an **application** and a **library**:
 
@@ -254,7 +254,7 @@ Homepage = "https://github.com/your-org/python-starter"
 Repository = "https://github.com/your-org/python-starter"
 ```
 
-## 🔧 Customization
+## Customization
 
 ### Changing Python Version
 
@@ -294,7 +294,54 @@ Modify `[tool.pyright]` in `pyproject.toml`:
 typeCheckingMode = "basic"  # "strict" (default) | "basic" | "off"
 ```
 
-## 🚦 CI/CD
+### Alternative Type Checker: ty (Future Option)
+
+[ty](https://github.com/astral-sh/ty) is an extremely fast Python type checker written in Rust by Astral (makers of Ruff and uv). It offers significant performance benefits:
+
+**Performance Benefits:**
+- 10-20x faster than mypy
+- 2-5x faster than Pyright
+- Benchmarks: 100k LOC codebase in 2.5s vs Pyright's 13.6s
+
+**Astral Toolchain Integration:**
+- Works seamlessly with `uv` and `ruff`
+- Unified workflow: `uv run ty check` alongside `uv run ruff check`
+- Gradual typing friendly with minimal false positives
+
+**Current Status:**
+- **Pre-alpha** (v0.0.1a19+): Not production-ready yet
+- Many false positives reported in current releases
+- General availability targeted for late 2025
+
+**When to Consider:**
+- When ty reaches beta/stable (late 2025)
+- When maximum type checking speed is critical
+- When you want full Astral toolchain integration (uv + ruff + ty)
+
+**Migration Path (when ready):**
+```bash
+# Install ty
+uv add --dev ty
+
+# Update pyproject.toml
+[tool.ty.environment]
+python-version = "3.12"
+python = ".venv"
+
+[tool.ty.rules]
+unresolved-reference = "error"
+invalid-assignment = "error"
+invalid-argument-type = "error"
+call-non-callable = "error"
+
+# Update CI and commands
+# Replace: uv run pyright
+# With: uv run ty check
+```
+
+**Recommendation:** Stick with Pyright for production use until ty reaches stable release. Pyright is battle-tested, has excellent VS Code integration (Pylance), and provides a mature feature set perfect for starter kits.
+
+## CI/CD
 
 ### Quality Gates
 Every PR runs:
@@ -324,7 +371,7 @@ jobs:
     - run: uv publish --token ${{ secrets.PYPI_API_TOKEN }}
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -353,7 +400,7 @@ uv sync --dev
 uv run pytest tests/
 ```
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/amazing-feature`
@@ -363,11 +410,11 @@ uv run pytest tests/
 6. Push to the branch: `git push origin feature/amazing-feature`
 7. Open a Pull Request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **uv** by Astral for the amazing Python package manager
 - **Ruff** by Astral for the blazingly fast linter/formatter
@@ -376,4 +423,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Happy coding!** 🎉
+**Happy coding!**
