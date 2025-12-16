@@ -15,3 +15,4 @@ def test_main_exits_successfully(capsys):
     captured = capsys.readouterr()
     assert "Hello from python-starter!" in captured.out
     assert "Python version:" in captured.out
+

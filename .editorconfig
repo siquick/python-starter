@@ -26,3 +26,4 @@ indent_style = tab
 
 [*.{txt,rst}]
 max_line_length = 88
+

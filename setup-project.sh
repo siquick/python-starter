@@ -80,3 +80,4 @@ echo "4. Start developing: uv run python main.py"
 echo "5. Push to your new repository"
 echo ""
 echo "🎉 Happy coding!"
+
